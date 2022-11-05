@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import axios from "axios";
 import API from "../utils/API";
 
+
 function FileUpload(props) {
   const [file, setFile] = useState({ fileName: "" });
   const [response, setResponse] = useState();
@@ -12,10 +13,22 @@ function FileUpload(props) {
   };
 
   function handleSubmit(event) {
-    // event.preventDefault();
+    event.preventDefault();
     API.saveDebugFile(file).then((response) => {
       setFile({ fileName: "" });
     });
+
+  }
+
+  function onClickMe(event) {
+    event.preventDefault()
+    API.getDebugFiles().then((response) => {
+      const array = response.data
+      for (let i = 0; i < array.length; i++) {
+        console.log(array[i]._id)
+      }
+
+    })
   }
 
   return (
@@ -30,7 +43,9 @@ function FileUpload(props) {
           onChange={handleInputChange}
         />
         <button type="submit">Upload</button>
+
       </form>
+      <button type="button" onClick={onClickMe}>Click Me!</button>
     </div>
   );
 }
