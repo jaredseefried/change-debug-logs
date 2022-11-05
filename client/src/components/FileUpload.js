@@ -31,6 +31,17 @@ function FileUpload(props) {
     })
   }
 
+  function deleteLog(event) {
+    event.preventDefault()
+    API.getDebugFiles().then((response) => {
+      const array = response.data
+      const arrayId = array[0]._id
+      API.deleteDebugFile(arrayId).then((response) => {
+
+      })
+    })
+  }
+
   return (
     <div className="App">
       <form onSubmit={handleSubmit}>
@@ -46,6 +57,7 @@ function FileUpload(props) {
 
       </form>
       <button type="button" onClick={onClickMe}>Click Me!</button>
+      <button type="button" onClick={deleteLog}>Delete Me!</button>
     </div>
   );
 }
