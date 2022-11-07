@@ -1,9 +1,12 @@
 const express = require("express");
 const morgan = require("morgan");
+const fileUpload = require("express-fileupload");
 const mongoose = require("mongoose");
 const routes = require("./routes");
 const app = express();
 const PORT = process.env.PORT || 3001;
+
+app.use(fileUpload())
 app.use(morgan("dev"));
 
 // Define middleware here
@@ -20,6 +23,7 @@ const options = {
   useNewUrlParser: true,
   useUnifiedTopology: true,
 };
+
 // Connect to the Mongo DB
 mongoose.connect(
   process.env.MONGODB_URI || "mongodb://localhost/update-debugs",

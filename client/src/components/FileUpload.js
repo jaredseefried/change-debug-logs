@@ -2,8 +2,7 @@ import React, { useState } from "react";
 import axios from "axios";
 import API from "../utils/API";
 
-
-function FileUpload(props) {
+function FileUpload() {
   const [file, setFile] = useState({ fileName: "" });
   const [response, setResponse] = useState();
 
@@ -14,20 +13,22 @@ function FileUpload(props) {
 
   function handleSubmit(event) {
     event.preventDefault();
+
     API.saveDebugFile(file).then((response) => {
       setFile({ fileName: "" });
+      console.log("uploaded")
     });
-
   }
 
   function onClickMe(event) {
     event.preventDefault()
     API.getDebugFiles().then((response) => {
       const array = response.data
-      for (let i = 0; i < array.length; i++) {
-        console.log(array[i]._id)
+      if (array.length === 0) {
+        console.log("Nothing in the array")
+      } else {
+        console.log(array)
       }
-
     })
   }
 
@@ -36,10 +37,15 @@ function FileUpload(props) {
     API.getDebugFiles().then((response) => {
       const array = response.data
       const arrayId = array[0]._id
-      API.deleteDebugFile(arrayId).then((response) => {
-
-      })
+      if (array.length === 0) {
+        console.log("Nothing in the array")
+      } else {
+        console.log("Deleted")
+        API.deleteDebugFile(arrayId).then((response) => {
+        })
+      }
     })
+
   }
 
   return (

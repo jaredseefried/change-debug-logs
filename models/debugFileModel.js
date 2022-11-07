@@ -4,7 +4,7 @@ const Schema = mongoose.Schema;
 
 const DebugFileSchema = new Schema({
   date: { type: Date, default: Date.now },
-  fileName: String,
+  fileName: String
 });
 const DebugFile = mongoose.model("DebugFile", DebugFileSchema);
 
